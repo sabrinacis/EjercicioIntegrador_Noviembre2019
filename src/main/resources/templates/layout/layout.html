@@ -17,7 +17,7 @@
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<a class="navbar-brand text-white">Menu Factura de clientes</a>
+		<a class="navbar-brand text-white">Menu</a>
 
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -25,11 +25,23 @@
 				</li>
 				<li class="nav-item"><a class="nav-link" th:href="@{/listar}">Lista Clientes</a>
 				</li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/agregar_producto}">Agregar producto</a>
+				</li>
+		
+				
 			</ul>
 			<form class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm-2" type="search"
 					placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+								
+									
+								<td><a class="btn btn-primary btn-m"
+								th:href="@{/buscar/} + ${nombre}" th:text="'buscar cliente'"></a></td>  
+								
+				<!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>   -->
+				
+			
+				
 			</form>
 		</div>
 	</nav>
@@ -38,6 +50,9 @@
 	<div class="alert alert-danger" th:if="${error!=null}" th:text="${error}"></div>
 	<div class="alert alert-warning" th:if="${warning!=nul}" th:text="${warning}"></div>
 	<div class="alert alert-info" th:if="${info!=null}" th:text="${info}"></div>
+	
+
+	
 </header>
 
 

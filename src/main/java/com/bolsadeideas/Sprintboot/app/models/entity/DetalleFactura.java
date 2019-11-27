@@ -16,35 +16,26 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 import com.sun.istack.NotNull;
 
 @Entity
-@Table(name = "clientes")
-public class Cliente implements Serializable {
+@Table(name = "detalle_factura")
+public class DetalleFactura implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotEmpty
-	private String nombre;
+	private Long idFactura;
 	
 	@NotEmpty
-	private String apellido;
+	private Long idProducto;
 	
-	@Email
-	@NotEmpty
-	private String email;
-
-	@DateTimeFormat(pattern="yyy-MM-dd")
-	@Column(name = "create_at")
-	@Temporal(TemporalType.DATE)
-	@NotNull
-	private Date createAt;
+	private float precio;
 	
-	private static final long serialVersionUID = 1l;
-
-
 	public Long getId() {
 		return id;
 	}
@@ -53,41 +44,39 @@ public class Cliente implements Serializable {
 		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public Long getIdFactura() {
+		return idFactura;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setIdFactura(Long idFactura) {
+		this.idFactura = idFactura;
 	}
 
-	public String getApellido() {
-		return apellido;
+	public Long getIdProducto() {
+		return idProducto;
 	}
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setIdProducto(Long idProducto) {
+		this.idProducto = idProducto;
 	}
 
-	public String getEmail() {
-		return email;
+	public float getPrecio() {
+		return precio;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	
-	public Date getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
+	public void setPrecio(float precio) {
+		this.precio = precio;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	
+
+
+
+	
+
 
 }

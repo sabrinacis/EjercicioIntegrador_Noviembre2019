@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout/layout::head"></head>
+<body>
+	<header th:replace="layout/layout::header"></header>
+	<div class="container py-4">
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+
+				<form th:action="@{/agregar_producto}" th:object="${producto}" method="post">
+					<table class="table table-bordered">
+				
+						
+							<div class="form-group row">
+							<label class="col-sm-2 col-form-label">nombre</label>
+							<div class="col-sm-6">
+								<input type="text" th:field="*{nombre}" class="form-control"
+									th:errorClass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('nombre')}"
+									th:errors="*{nombre}"></small>
+							</div>
+						</div>
+
+
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">precio</label>
+							<div class="col-sm-6">
+								<input type="number" th:field="*{precio}" class="form-control"
+									th:errorClass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></small>
+							</div>
+						</div>
+						
+					</table>
+					<button class="btn btn-success" type="submit">agregar</button>
+
+					<!--&nbsp;<a class="btn btn-warning" th:href="@{/productos/mostrar}">ver todos</a>  -->
+					
+                       <form th:action="@{/agregar_producto}" th:object="${productos}" method="post">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+								    <th class="bg-light table-bordered">codigo</th>
+									<th class="bg-light table-bordered">nombre</th>
+									<th class="bg-light table-bordered">precio</th>
+								</tr>
+							</thead>
+							<tbody>
+
+
+								<tr th:each="productos: ${productos}">
+								<td th:text="${productos.id}"></td>
+									<td th:text="${productos.nombre}"></td>
+									<td th:text="${productos.precio}"></td>									
+								</tr>
+							</tbody>
+						</table>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+

@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/layout/layout::head"></head>
+<head>
+<meta charset="UTF-8" />
+<title th:text="${titulo}">Insert title here</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
 <body>
-	<header th:replace="layout/layout::header"></header>
+<header th:replace="layout/layout::header"></header>
+
 	<div class="container py-4">
 		<div class="card bg-light">
 			<div class="card-header" th:text="${titulo}"></div>
 			<div class="card-body">
-	
-				<form th:action="@{/form}" th:object="${cliente}" method="post">
+			
+			
+		<form th:action="@{/buscar}" th:object="${cliente}" method="post">
 					<table class="table table-bordered">
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label">Nombre</label>
@@ -59,9 +66,15 @@
 					</table>
 
 				</form>
+
 				
-				</div>
-				</div>
-				</div>
-				</body>				
+			</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
 </html>

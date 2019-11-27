@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+  <title th:="${titulo}"></title>
+</head>
+
+<body>
+
+	<div class="container py-4">
+		<div class="card bg-light">
+			<div class="card-body">
+              <h4 class="card-title">
+              <a th:href="@{/crearCliente}" class="btn btn-primary btn-xs">crear cliente</a>
+              </h4>			
+				<table class=table>
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>nombre</th>
+							<th>apellido</th>
+							<th>email</th>
+							<th>fecha</th>
+							<th>editar</th>
+							<th>eliminar</th>
+						</tr>
+					</thead>
+
+				</table>
+			</div>
+		</div>
+	</div>	
+</body>
+</html>

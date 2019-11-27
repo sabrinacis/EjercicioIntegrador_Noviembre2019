@@ -5,6 +5,7 @@
 <title th:text="${titulo}">Insert title here</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	
 </head>
 <body>
 <header th:replace="layout/layout::header"></header>
@@ -19,7 +20,9 @@
 					<a th:href="@{/form}" class="btn btn-primary btn-xs">crear cliente</a>
 				</h4>
 			</div>
-				
+			       
+					
+								
 				<table class="table table-striped">
 					<thead>
 						<tr>
@@ -47,10 +50,22 @@
 							<td><a class="btn btn-danger btn-xs"
 								th:href="@{/eliminar/} + ${cliente.id}" th:text="'eliminar'"
 								onclick="return confirm('Estás seguro que quieres eliminar?');"></a></td>
+								
 						</tr>
 					</tbody>
-
+				
 				</table>
+				<nav aria-label="Page navigation example">
+			  <ul class="pagination">
+			    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+			    <li class="page-item"><a class="page-link" href="#">1</a></li>
+			    <li class="page-item"><a class="page-link" href="#">2</a></li>
+			    <li class="page-item"><a class="page-link" href="#">3</a></li>
+			    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+			  </ul>
+			</nav>
+			
+		     
 			</div>
 		</div>
 	</div>

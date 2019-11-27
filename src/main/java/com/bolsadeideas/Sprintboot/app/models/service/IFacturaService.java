@@ -14,4 +14,6 @@ public interface IFacturaService {
 	public Factura findOne(Long id);
 	
 	public void delete(Long id);
+	
+	public Integer totalPrecio(Integer cantidad,Integer precio);
 }

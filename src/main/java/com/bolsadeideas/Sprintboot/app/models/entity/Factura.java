@@ -7,13 +7,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import com.sun.istack.NotNull;
+import org.springframework.format.annotation.NumberFormat;
+
 
 
 
 @Entity
 @Table(name = "facturas")
 public class Factura implements Serializable{
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -26,6 +29,21 @@ public class Factura implements Serializable{
 	@NotEmpty
 	private String nombreCliente;
 
+	@NotNull
+	@NumberFormat
+    private Integer totalFactura;
+	
+	@NotNull
+	@NumberFormat
+	private Integer productoId;
+    
+	public Integer getProductoId() {
+		return productoId;
+	}
+
+	public void setProductoId(Integer productoId) {
+		this.productoId = productoId;
+	}
 
 	public String getDescripcion() {
 		return descripcion;
@@ -35,7 +53,7 @@ public class Factura implements Serializable{
 		this.descripcion = descripcion;
 	}
 
-
+ 
 	public String getNombreCliente() {
 		return nombreCliente;
 	}
@@ -48,6 +66,7 @@ public class Factura implements Serializable{
 		return serialVersionUID;
 	}
 
+	
 	public Long getId() {
 		return id;
 	}
@@ -55,6 +74,18 @@ public class Factura implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+
+	public Integer getTotalFactura() {
+		return totalFactura;
+	}
+	
+
+	public void setTotalFactura(Integer totalFactura) {
+		this.totalFactura = totalFactura;
+	}
+	
+	
 	
 	
 
