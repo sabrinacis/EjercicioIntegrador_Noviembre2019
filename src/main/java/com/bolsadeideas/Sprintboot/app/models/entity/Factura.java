@@ -41,6 +41,7 @@ public class Factura implements Serializable{
 		return productoId;
 	}
 
+	
 	public void setProductoId(Integer productoId) {
 		this.productoId = productoId;
 	}

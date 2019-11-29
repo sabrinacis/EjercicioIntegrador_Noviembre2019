@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,8 +63,16 @@ public class ClienteServiceImplement implements IClienteService {
 	@Transactional
 	public Cliente findClienteByName(String name) {
 		// TODO Auto-generated method stub
-
+		
 		return null;
 	}
+
+	/*
+	 * @Override public List<Cliente> findClientByName(String name) { var cliente =
+	 * (List<Cliente>) clienteDao.findClientByName(name); return cliente; }
+	 */
+
+	       
+	
 
 }

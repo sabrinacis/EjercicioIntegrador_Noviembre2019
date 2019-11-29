@@ -68,19 +68,19 @@
 						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th class="bg-light table-bordered">codigo</th>
-									<th class="bg-light table-bordered">nombre</th>
-									<th class="bg-light table-bordered">precio</th>
-									<th class="bg-light table-bordered">cantidad</th>
-									<th class="bg-light table-bordered">total</th>
-									<th class="bg-light table-bordered">Borrar</th>
-
+									<th class="bg-dark text-white table-bordered">codigo</th>
+									<th class="bg-dark text-white table-bordered">nombre</th>
+									<th class="bg-dark text-white table-bordered">precio</th>
+									<th class="bg-dark text-white table-bordered">cantidad</th>
+									<th class="bg-dark text-white table-bordered">total</th>
+									<!-- <th class="bg-light table-bordered">Borrar</th> -->
 								</tr>
 							</thead>
 							<tbody>
 
-
 								<tr th:each="producto: ${producto}">
+								
+								
 									<td th:text="${producto.id}"></td>
 									<td th:text="${producto.nombre}"></td>
 									<td type="text" id="Precio" name="Precio"
@@ -89,13 +89,15 @@
 									<td><input type="text" name="Cantidad" id="Cantidad"
 										value="" onkeyup="multiplicar();" /></td>
 									<td type="number" id="resultado"></td>
-									<td><a class="btn btn-danger btn-xs"
+									<!--<td><a class="btn btn-danger btn-xs"
 										th:href="@{/eliminarProducto/} + ${producto.id}" th:text="'x'"
 										onclick="return confirm('Estás seguro que quieres eliminar?');">
-									</a></td>
-						</table>
-						<script>
-							function multiplicar() {
+									</a></td>  -->							
+						</table>						
+						</tr>
+						
+								<script>
+							   function multiplicar() {
 								m1 = document.getElementById("Precio").innerHTML;
 								m2 = document.getElementById("Cantidad").value;
 								r = m1 * m2;
@@ -105,10 +107,8 @@
 							}
 							
 						</script>
-						</tr>
 						</tbody>
 						</table>
-
 
 						<!--<td class="btn btn-dark btn-xs form-control">0</td>-->
 						<td><input type="submit" value="Crear Factura"

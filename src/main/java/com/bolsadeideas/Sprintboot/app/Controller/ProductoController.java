@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.logging.Logger;
+
+import com.bolsadeideas.Sprintboot.app.models.entity.Factura;
 import com.bolsadeideas.Sprintboot.app.models.entity.Producto;
 import com.bolsadeideas.Sprintboot.app.models.service.FacturaServiceImplement;
 import com.bolsadeideas.Sprintboot.app.models.service.IFacturaService;
@@ -49,16 +51,32 @@ public class ProductoController {
 			try {
 			if(result.hasErrors()) {
 				model.addAttribute("titulo","agregar producto");
+				model.addAttribute(productoService.findall());
 				return "agregar_producto";		
 			}
+			LOGGER.info("valor producto mapeado= "+producto.getNombre()+" precio: "+producto.getPrecio());
 			
-			String mensajeFlash=(producto.getId()!=null)? "producto editado con exito":"producto creado con exito";	
-			productoService.save(producto);
-			status.setComplete();
-			flash.addFlashAttribute("success",mensajeFlash);
+			if((producto.getNombre()!=null)&&(producto.getPrecio()!=null)) {
+				
+				productoService.save(producto);
+				status.setComplete();
+				flash.addFlashAttribute("success","producto creado con exito");
+				LOGGER.info("el producto: "+producto.getNombre()+" fue guardado exitosamente");
+				
+			}
+			else {
+			flash.addFlashAttribute("error","todos los campos son requeridos");
+			model.addAttribute(productoService.findall());
+			return "redirect:agregar_producto";
+			
+			}
+			
 			}
 			catch(Exception e) {
 				LOGGER.info("error");
+				model.addAttribute(productoService.findall());
+				return "redirect:agregar_producto";
+				
 			}
 			LOGGER.info("fin agregar producto controller");
 			return "redirect:agregar_producto";
@@ -73,9 +91,10 @@ public class ProductoController {
 			
 			}
 			
-			return "redirect:/factura";
+			return "redirect:/agregar_producto";
 			
 		}
+		 
 }
 	 
 	 

@@ -2,6 +2,8 @@ package com.bolsadeideas.Sprintboot.app.models.service;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
+
 import com.bolsadeideas.Sprintboot.app.models.entity.Cliente;
 
 
@@ -16,4 +18,6 @@ public interface IClienteService {
 	public void delete(Long id);
 	
 	public Cliente findClienteByName(String name);
+	
+	//public List<Cliente> findClientByName(@Param("name") String name);
 }

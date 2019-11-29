@@ -1,5 +1,6 @@
 package com.bolsadeideas.Sprintboot.app.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -56,29 +57,55 @@ public class ClienteController {
 
 	@RequestMapping(value="/form")
 	public String crear(Map<String,Object>model) {
+		
 		Cliente cliente=new Cliente();
-		model.put("cliente",cliente);
+		model.put("cliente",cliente);	
 		model.put("titulo", "Formulario de Cliente");
 		return "form";
 		
 	}
-	@RequestMapping(value="/buscar")
+	@RequestMapping(value="buscar")
 	public String crearBuscar(Map<String,Object>model) {
-		String nombre=" ";
-		model.put("nombre",nombre);
+		Cliente cliente=new Cliente();
+		model.put("cliente", cliente);
+		
 		model.put("titulo", "Buscar Cliente");
 		return "buscar";
 		
 	}
-	
 		
 	
 	@RequestMapping(value="/form",method=RequestMethod.POST)
 	public String guardar(@Valid Cliente cliente,BindingResult result,Model model,RedirectAttributes flash,SessionStatus status) {
+	LOGGER.info("inicio guardar cliente controller");
 		if(result.hasErrors()) {
 			model.addAttribute("titulo","Formulario de Cliente");
 			return "form";		
 		}
+		List<Cliente> lista;
+		lista=clienteService.findall();
+		
+	
+		for(int i=0;i<lista.size();i++) {
+			//validacion si el cliente ya existe en BD
+			
+			
+			  if(lista.get(i).getApellido().equals(cliente.getApellido())&(lista.get(i).
+			  getNombre().equals(cliente.getNombre()))&(lista.get(i).getEmail().equals(cliente.getEmail()))) {
+			  
+			  LOGGER.info("validar que el cliente ya exite");
+			  LOGGER.info("cliente ingresado valor= "+cliente.getNombre()+" "+cliente.
+			  getApellido()+"= cliente en BD valor= "+lista.get(i).getNombre()+" "+lista.
+			  get(i).getApellido());
+			  
+			  flash.addFlashAttribute("error","el cliente ya existe"); 
+			  return"redirect:/listar";
+			  
+			  }
+			 				 
+		
+		}
+		
 		String mensajeFlash=(cliente.getId()!=null)? "Cliente editado con exito":"Cliente creado con exito";	
 		clienteService.save(cliente);
 		status.setComplete();
@@ -87,6 +114,54 @@ public class ClienteController {
 		
 	}
 		
+	
+	
+	
+
+	@RequestMapping(value="/buscar",method=RequestMethod.POST)
+	public String buscar(Cliente cliente,BindingResult result,Model model,RedirectAttributes flash,SessionStatus status) {
+		List<Cliente> listaFiltradaPorNombre=new ArrayList();
+		try { 
+	        LOGGER.info("inicio buscar cliente");
+		     LOGGER.info("buscando cliente con nombre: "+cliente.getNombre());
+			  List<Cliente> listaClientes=clienteService.findall();
+			 	
+			  LOGGER.info("valor variable nombre: "+cliente.getNombre());
+			  if(cliente.getNombre().isBlank()||cliente.getNombre().isEmpty()) {
+					
+					flash.addFlashAttribute("error","no se genero ningun resultado para la búsqueda");
+					return "redirect:/buscar";
+				}
+			  		  
+				for (int i=0;i<listaClientes.size();i++) {
+					LOGGER.info("pase por  buscar cliente por nombre");
+					LOGGER.info("cliente: "+listaClientes.get(i).getNombre());
+					if(listaClientes.get(i).getNombre().equals(cliente.getNombre())) {
+						LOGGER.info("cliente encontrado: "+listaClientes.get(i).getNombre());					
+						cliente=listaClientes.get(i);
+						listaFiltradaPorNombre.add(cliente);
+						
+					}
+					
+					
+				}
+				
+				
+				if(cliente.getApellido()==null) {
+					flash.addFlashAttribute("error","no se genero ningun resultado para la búsqueda");
+					return "redirect:/buscar";
+				}
+				model.addAttribute("titulo","Resultado busqueda");	
+				model.addAttribute("clientes",listaFiltradaPorNombre);		
+				
+	        }
+	        catch(Exception e) {
+	        	LOGGER.info("Error");
+	        }
+	        LOGGER.info("fin buscar cliente");
+				return "/listar";
+		  }
+	
 	
 	@RequestMapping(value="/form/{id}")
 	public String editar(@PathVariable(value="id") Long id, Map<String,Object> model,RedirectAttributes flash) {
@@ -121,45 +196,5 @@ public class ClienteController {
 	}
 	
 	
-	  
-	@RequestMapping(value="/buscar/{nombre}") 
-	  public String buscar(@PathVariable(value="nombre") String nombre, Map<String,Object>model,RedirectAttributes flash) {
-        nombre="emilia";
-		try { 
-        LOGGER.info("inicio buscar cliente");
-	  
-		  List<Cliente> listaClientes=clienteService.findall();
-		  Cliente cliente=new Cliente();	
-		  LOGGER.info("valor variable path: "+nombre);
-		  if(nombre==" ") {
-				
-				flash.addFlashAttribute("error","no se genero ningun resultado para la búsqueda");
-				return "redirect:/listar";
-			}
-		  		  
-			for (int i=0;i<listaClientes.size();i++) {
-				LOGGER.info("pase por  buscar cliente por nombre");
-				LOGGER.info("cliente: "+listaClientes.get(i).getNombre());
-				if(listaClientes.get(i).getNombre().equals(nombre)) {
-					LOGGER.info("cliente: "+listaClientes.get(i).getNombre());					
-					cliente=listaClientes.get(i);
-									
-				}
-				else {
-					flash.addFlashAttribute("error","no se genero ningun resultado para la búsqueda");
-					return "redirect:/listar";
-				}
-			}
-		  						
-			model.put("titulo", "busqueda de cliente");
-			model.put("cliente", cliente);
-        }
-        catch(Exception e) {
-        	LOGGER.info("Error");
-        }
-        LOGGER.info("fin buscar cliente");
-			return "/form";
-	  }
-	   
-	  
+	
 }

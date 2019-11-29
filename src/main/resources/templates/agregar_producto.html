@@ -36,6 +36,7 @@
 						
 					</table>
 					<button class="btn btn-success" type="submit">agregar</button>
+					
 
 					<!--&nbsp;<a class="btn btn-warning" th:href="@{/productos/mostrar}">ver todos</a>  -->
 					
@@ -43,9 +44,10 @@
 						<table class="table table-striped">
 							<thead>
 								<tr>
-								    <th class="bg-light table-bordered">codigo</th>
-									<th class="bg-light table-bordered">nombre</th>
-									<th class="bg-light table-bordered">precio</th>
+								    <th class="bg-dark text-white table-bordered">codigo</th>
+									<th class="bg-dark text-white table-bordered">nombre</th>
+									<th class="bg-dark text-white table-bordered">precio</th>
+									<th class="bg-dark text-white table-bordered">borrar</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -54,7 +56,11 @@
 								<tr th:each="productos: ${productos}">
 								<td th:text="${productos.id}"></td>
 									<td th:text="${productos.nombre}"></td>
-									<td th:text="${productos.precio}"></td>									
+									<td th:text="${productos.precio}"></td>		
+									<td><a class="btn btn-danger btn-xs"
+										th:href="@{/eliminarProducto/} + ${productos.id}" th:text="'x'"
+										onclick="return confirm('Estás seguro que quieres eliminar?');">
+									</a></td>								
 								</tr>
 							</tbody>
 						</table>
